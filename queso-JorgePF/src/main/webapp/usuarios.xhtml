@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuario</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <center><h2>Mantenimiento de Usuarios</h2></center>
+        <h:form id="formUsuario" rendered="#{usuariosMB.loginMB.verBotonGuardarUsuario}"> <!--rendered usa una variable booleana -->
+            <p:growl id="growlUsuario"/>
+            <h:panelGrid columns = "2">
+                <p:outputLabel value="Usuario"/>
+                <p:inputText value="#{usuariosMB.usuarioVista.usuario}"/>
+                <p:outputLabel value ="Contraseña"/>
+                <p:password value="#{usuariosMB.usuarioVista.pass}"/>
+                <p:outputLabel value="Rol"/>
+                <p:selectOneMenu id="selectRol" value="#{usuariosMB.selectRolVal}">
+                    <f:selectItem itemLabel="Seleccione un rol" itemValue="0"/>
+                    <f:selectItems value="#{usuariosMB.rolesSelect}"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:commandButton value="Guardar Usuario" action="#{usuariosMB.guardarUsuario()}" update="formUsuario:growlUsuario" rendered="#{usuariosMB.loginMB.verBotonGuardarUsuario}"/>
+            <p:commandButton value="Actualizar Usuario" action="#{usuariosMB.actualizarUsuario()}" update="formUsuario:growlUsuario, formDtUsuario:dtUsuario"/>
+        </h:form>
+        <h:form id="formDtUsuario">
+            <p:dataTable id="dtUsuario" var="user" value="#{usuariosMB.listUsuario}" rows="5" paginator="true">
+                <p:column headerText="ID usuario">
+                    <p:outputLabel value="#{user.idUsuario}"/>
+                </p:column>
+                <p:column headerText="Usuario">
+                    <p:outputLabel value="#{user.usuario}"/>
+                </p:column>
+                <p:column headerText="Acciones">
+                    <p:commandButton value="Seleccionar" action="#{usuariosMB.seleccionarUsuario(user)}" update="formUsuario"/>
+                    <p:commandButton value="Eliminar" action="#{usuariosMB.eliminarUsuario()}" update="formDtUsuario:dtUsuario"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>

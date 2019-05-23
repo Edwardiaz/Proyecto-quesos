@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Log In</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <center>
+            <h:form id="formLogIn">
+                <p:growl id="growlLogin"/>
+                <img src="resources/images/logo.jpg" alt="" width="20%"/>
+                <h:graphicImage library="images" name="logo.jpg" width="10%" height="10%"/>
+                <h:panelGrid>   
+                    <p:outputLabel value="Usuario"/>
+                    <!--accediendo al usuario, de la variable usuario del bean manejado loginMB-->
+                    <p:inputText value="#{loginMB.usuario.usuario}"/>
+                    
+                    <p:outputLabel value="Password"/>
+                    <!--accediendo al password, de la variable usuario del bean manejado loginMB-->
+                    <p:password value="#{loginMB.usuario.pass}"/>
+                </h:panelGrid>
+                <p:commandButton icon="ui-icon-key" value="Ingresar" action="#{loginMB.logearUsuario()}" update="formLogIn:growlLogin"/>
+            </h:form>
+        </center>
+    </h:body>
+</html>
